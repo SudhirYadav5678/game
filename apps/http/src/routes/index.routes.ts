@@ -36,3 +36,5 @@ router.get("/avatars", async (req, res) => {
 
 router.use("/admin", adminRoute)
 router.use("/space", spaceRouter)
+
+// npx ts-node-dev ./src/index.ts used for run files hot reload in this cmd.

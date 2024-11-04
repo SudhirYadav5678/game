@@ -4,8 +4,9 @@ import { JWT_PASSWORD_TOKEN } from "../config";
 import jwt from "jsonwebtoken";
 
 export const adminMiddleware = (req: Request, res: Response, next: NextFunction) => {
-    const headers = req.headers["authorization"]
-    const token = headers?.split(" ")[1];
+    const header = req.headers["authorization"];
+    const token = header?.split(" ")[1];
+    console.log("admintoken", token)
     if (!token) {
         res.status(403).json({ message: 'Unauthorized' });
         return;
@@ -16,10 +17,10 @@ export const adminMiddleware = (req: Request, res: Response, next: NextFunction)
             res.status(403).json({ message: "Unauthorized" })
             return
         }
-        req.userId == decoded.userId
+        req.userId = decoded.userId
         next()
     } catch (error) {
-        res.status(403).json({ message: "Unauthorized" })
+        res.status(401).json({ message: "Unauthorized" })
         return
     }
 }

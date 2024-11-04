@@ -7,10 +7,8 @@ import { AddElementSchema, CreateElementSchema, CreateSpaceSchema, DeleteElement
 export const spaceRouter = Router();
 
 spaceRouter.post("/", userMiddleware, async (req, res) => {
-    //console.log("endopibnt")
     const parsedData = CreateSpaceSchema.safeParse(req.body)
     if (!parsedData.success) {
-        //console.log(JSON.stringify(parsedData))
         res.status(400).json({ message: "Validation failed" })
         return
     }

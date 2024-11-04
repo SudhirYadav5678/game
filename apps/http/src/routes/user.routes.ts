@@ -58,6 +58,7 @@ userRoute.post("/signin", async (req, res) => {
             userId: user.id,
             role: user.role,
         }, JWT_PASSWORD_TOKEN)
+        console.log("Token returned", token);
 
         res.json({ token: token, success: true, message: "User authenticated successfully" })
     } catch (error) {
@@ -68,7 +69,7 @@ userRoute.post("/signin", async (req, res) => {
 userRoute.post("/metadata", userMiddleware, async (req: Request, res: Response) => {
     const parsedData = updateMetadataSchema.safeParse(req.body)
     if (!parsedData.success) {
-        //console.log("parsed data incorrect")
+        console.log("parsed data incorrect")
         res.status(400).json({ message: "Validation failed" })
         return
     }
@@ -83,7 +84,7 @@ userRoute.post("/metadata", userMiddleware, async (req: Request, res: Response) 
         })
         res.json({ message: "Metadata updated" })
     } catch (e) {
-        //console.log("error")
+        console.log("error")
         res.status(400).json({ message: "Internal server error" })
     }
 })
