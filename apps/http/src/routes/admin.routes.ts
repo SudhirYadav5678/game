@@ -4,8 +4,10 @@ import { AddElementSchema, CreateAvatarSchema, CreateElementSchema, CreateMapSch
 import client from "@repo/db/client"
 
 export const adminRoute = Router()
+// adding the middleware to all the routes in the admin middleware.
+adminRoute.use(adminMiddleware)
 
-adminRoute.post("/element", adminMiddleware, async (req, res) => {
+adminRoute.post("/element", async (req, res) => {
     const parsedData = CreateElementSchema.safeParse(req.body)
     if (!parsedData.success) {
         res.status(400).json({ message: "validation error" })
@@ -21,7 +23,6 @@ adminRoute.post("/element", adminMiddleware, async (req, res) => {
 
         }
     })
-
     res.json({ id: element.id, message: "element created successfully" })
 })
 
